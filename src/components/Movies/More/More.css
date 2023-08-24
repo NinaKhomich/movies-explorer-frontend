@@ -1,0 +1,39 @@
+.more {
+  padding: 50px 10px 80px;
+}
+
+.more__btn {
+  width: 100%;
+  background-color: #2F2F2F;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.more__btn:hover {
+  opacity: .8;
+}
+
+.more__btn_hidden {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .more {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .more {
+    padding-left: 70px;
+    padding-right: 70px;
+  }
+}

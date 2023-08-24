@@ -1,0 +1,39 @@
+.sign-input__name {
+  color: #8B8B8B;
+  font-size: 10px;
+  line-height: normal;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.sign-input__field {
+  background-color: transparent;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  border:none;
+  width: 100%;
+  padding-bottom: 10px;
+  padding-left: 0;
+  border-bottom: 1px solid #424242;
+}
+
+.sign-input__field::placeholder {
+  color: #FFF;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.sign-input__error {
+  color: #EE3465;
+  font-size: 10px;
+  line-height: normal;
+  visibility: hidden;
+}
+
+.sign-input__error_visible {
+  visibility: visible;
+}

@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 14px;
+}
+
+.header_main {
+  background-color: #073042;
+}
+
+.header__logo-link {
+  height: 38px;
+  transition: .5s;
+}
+
+.header__logo-link:hover {
+  opacity: .8;
+}
+
+@media screen and (min-width: 576px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header {
+    padding-left: 70px;
+    padding-right: 70px;
+    max-width: 1280px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+}

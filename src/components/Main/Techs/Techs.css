@@ -1,0 +1,118 @@
+.techs {
+  padding: 70px 18px;
+}
+
+.techs__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.72px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #000;
+}
+
+.techs__head {
+  margin-top: 60px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -1.2px;
+}
+
+.techs__text {
+  margin: 0 auto;
+  max-width: 420px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: -0.44px;
+}
+
+.techs__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 84px);
+  gap: 10px;
+  justify-content: center;
+  padding: 0 50px;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+
+.techs__item {
+  list-style: none;
+  padding-top: 21px;
+  padding-bottom: 21px;
+  border-radius: 10px;
+  background-color: #303030;
+  text-align: center;
+  font-size: 12px;
+  line-height: normal;
+  letter-spacing: -0.48px;
+}
+
+@media screen and (min-width: 768px) {
+  .techs {
+    padding: 92px 50px;
+    background-color: #272727;
+  }
+
+  .techs__title {
+    font-size: 22px;
+    letter-spacing: -0.88px;
+    border-color: #DADADA;
+    padding-bottom: 23px;
+  }
+
+  .techs__head {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    font-size: 50px;
+    letter-spacing: -2px;
+  }
+
+  .techs__text {
+    max-width: 420px;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.48px;
+  }
+
+  .techs__items {
+    padding: 0;
+    margin-top: 83px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .techs {
+    padding: 100px 70px;
+  }
+
+  .techs__title {
+    padding-bottom: 20px;
+  }
+
+  .techs__head {
+    margin-top: 90px;
+    margin-bottom: 24px;
+  }
+
+  .techs__text {
+    max-width: 460px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+  }
+
+  .techs__items {
+    margin-top: 100px;
+    grid-template-columns: repeat(auto-fit, 90px);
+  }
+
+  .techs__item {
+    font-size: 14px;
+    letter-spacing: -0.56px;
+  }
+}
