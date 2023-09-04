@@ -1,0 +1,264 @@
+.nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav_logged {
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #202020;
+  z-index: 1;
+  padding-top: 144px;
+  padding-bottom: 47px;
+  box-sizing: border-box;
+  transform: translateX(100%);
+  transition: .5s;
+}
+
+.nav_logged-open {
+  transform: translateX(0);
+}
+
+.nav__link {
+  text-decoration: none;
+  margin-left: 14px;
+  color: #FFF;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+  transition: .5s;
+}
+
+.nav__link:hover {
+  opacity: .7;
+}
+
+.nav__link_active {
+  border-bottom: 2px solid #fff;
+}
+
+.nav__link_signin {
+  border-radius: 3px;
+  background: #3DDC84;
+  padding: 5px 12px;
+  color: #000;
+}
+
+.nav__link_is-logged {
+  font-size: 18px;
+  line-height: normal;
+  margin-left: 0;
+  padding-bottom: 8px;
+  text-align: center;
+}
+
+.nav__link_is-logged:not(:last-of-type) {
+  margin-bottom: 17px;
+}
+
+.nav__link_profile {
+  font-size: 14px;
+  margin-top: auto;
+  margin-right: 43px;
+  position: relative;
+}
+
+.nav__link_profile:after {
+  position: absolute;
+  content: url('../../images/profile-icon.svg');
+  bottom: 0;
+  margin-left: 13px;
+  width: 30px;
+  height: 30px;
+}
+
+.nav__burger {
+  margin-right: 9px;
+  width: 22px;
+  height: 20px;
+  position: relative;
+  transition: .5s;
+  z-index: 1;
+}
+
+.nav__burger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #fff;
+  transition: .5s;
+}
+
+.nav__burger:before, .nav__burger:after {
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  content: '';
+  position: absolute;
+  transition: .4s;
+}
+
+.nav__burger:before {
+  top: 9px;
+}
+
+.nav__burger:after {
+  top: 18px;
+}
+
+.nav__burger_opened {
+  position: fixed;
+  right: 14px;
+  top: 27px;
+}
+
+.nav__burger_opened:before{
+  transform: translateY(-8px) rotateZ(45deg);
+  left: 5px;
+}
+
+.nav__burger_opened:after {
+  transform: translateY(-17px) rotateZ(-45deg);
+  left: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .nav__link {
+    font-size: 12px;
+    margin-left: 30px;
+  }
+
+  .nav__link_is-logged {
+    font-size: 18px;
+    margin-left: 0;
+    padding-bottom: 6px;
+  }
+
+  .nav__link_is-logged:not(:last-of-type) {
+    margin-bottom: 22px;
+  }
+
+  .nav__link_profile {
+    font-size: 14px;
+  }
+
+  .nav__link_signin {
+    border-radius: 3px;
+    background: #3DDC84;
+    padding: 8px 21px;
+  }
+
+  .nav_logged {
+    padding-top: 159px;
+    padding-bottom: 92px;
+    max-width: 520px;
+  }
+
+  .nav-wrap_cover:before {
+    position: fixed;
+    content: '';
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: .3;
+    background-color: #000;
+    z-index: 1;
+  }
+  
+  .nav__burger, .nav__burger-line {
+    width: 26px;
+  }
+  
+  .nav__burger:before, .nav__burger:after {
+    height: 3px;
+  }
+  
+  .nav__burger:after {
+    top: 19px;
+  }
+
+  .nav__burger_opened {
+    width: 22px;
+    right: 30px;
+  }
+  
+  .nav__burger_opened:before{
+    transform: translateY(1px) rotateZ(45deg);
+    left: 12px;
+  }
+  
+  .nav__burger_opened:after {
+    transform: translateY(-9px) rotateZ(-45deg);
+    left: 12px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .nav-wrap_cover:before {
+    display: none;
+  }
+
+  .nav_logged {
+    flex-direction: row;
+    position: static;
+    padding: 0;
+    width: unset;
+    min-height: unset;
+    transform: none;
+  }
+
+  .nav_logged-main {
+    background-color: transparent;
+  }
+
+  .nav__link {
+    font-size: 12px;
+    margin-left: 30px;
+    font-weight: 400;
+  }
+
+  .nav__link_active {
+    border-bottom: none;
+    font-weight: 500;
+  }
+
+  .nav__link_is-logged{
+    font-size: 14px;
+    line-height: 18px;
+    padding-bottom: 0;
+  }
+
+  .nav__link_is-logged:nth-child(3) {
+    margin-right: 20px;
+  }
+
+  .nav__link_is-logged:not(:last-of-type) {
+    margin-bottom: 0;
+    margin-left: 20px;
+  }
+
+  .nav__link_profile:after {
+    bottom: -5px;
+  }
+
+  .nav__link_main {
+    display: none;
+  }
+
+  .nav__link_signin {
+    border-radius: 3px;
+    background: #3DDC84;
+    padding: 8px 21px;
+  }
+
+  .nav__burger {
+    display: none;
+  }
+}

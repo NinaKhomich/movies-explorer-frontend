@@ -1,0 +1,136 @@
+.about-project {
+  padding: 70px 18px;
+}
+
+.about-project__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.72px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #DADADA;
+}
+
+.about-project__head {
+  margin-top: 60px;
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.72px;
+}
+
+.about-project__text {
+  max-width: 284px;
+  font-size: 11px;
+  line-height: 16px;
+  margin: 0;
+}
+
+.about-project__timeline {
+  display: grid;
+  grid-template-columns: 35%  65%;
+  align-items: center;
+  margin-top: 60px;
+  row-gap: 13px;
+}
+
+.about-project__part {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  padding: 11px;
+}
+
+.about-project__part:first-of-type {
+  color: #000;
+  background-color: #3DDC84;
+}
+
+.about-project__part:nth-of-type(2) {
+  background-color: #303030;
+}
+
+.about-project__part:nth-of-type(3),
+.about-project__part:nth-of-type(4) {
+  color: #A0A0A0;
+  padding: 0;
+}
+
+@media screen and (min-width: 576px) {
+  .about-project__description {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .about-project__head {
+    font-size: 20px;
+    letter-spacing: -0.8px;
+  }
+
+  .about-project__text {
+    max-width: 352px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__timeline {
+    grid-template-columns: 140px  1fr;
+    row-gap: 6px;
+  }
+
+  .about-project__part {
+    font-size: 14px;
+    padding: 9px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .about-project {
+    padding: 92px 50px;
+  }
+
+  .about-project__title {
+    font-size: 22px;
+    letter-spacing: -0.88px;
+    padding-bottom: 23px;
+  }
+
+  .about-project__head {
+    margin-top: 70px;
+    margin-bottom: 22px;
+  }
+
+  .about-project__timeline {
+    margin-top: 94px;
+    row-gap: 14px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .about-project {
+    padding: 112px 70px;
+  }
+
+  .about-project__description {
+    gap: 40px;
+  }
+  
+  .about-project__head {
+    margin-top: 70px;
+    margin-bottom: 28px;
+  }
+
+  .about-project__text {
+    max-width: unset;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .about-project__timeline {
+    margin-top: 113px;
+    grid-template-columns: 228px  1fr;
+    row-gap: 17px;
+  }
+}

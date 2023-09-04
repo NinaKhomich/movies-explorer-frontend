@@ -1,0 +1,94 @@
+.footer {
+  padding: 79px 10px 20px;
+}
+
+.footer__title {
+  margin: 0;
+  color: #8B8B8B;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  padding-bottom: 21px;
+  border-bottom: 1px solid #424242;
+}
+
+.footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 27px auto 28px;
+  text-align: center;
+}
+
+.footer__list-item:first-child {
+  margin-bottom: 8px;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  line-height: normal;
+  transition: .5s;
+}
+
+.footer__link:hover {
+  opacity: .7;
+}
+
+.footer__year {
+  color: #8B8B8B;
+  font-size: 12px;
+  line-height: normal;
+  text-align: center;
+  display: block;
+}
+
+@media screen and (min-width: 576px) {
+  .footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .footer__title {
+    font-size: 13px;
+    padding-bottom: 20px;
+  }
+
+  .footer__content {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+  }
+
+  .footer__list {
+    margin: 0;
+    display: flex;
+  }
+
+  .footer__list-item:not(:last-child) {
+    margin-bottom: 0px;
+    margin-right: 20px;
+  }
+
+  .footer__link {
+    font-size: 13px;
+  }
+
+  .footer__year {
+    color: #fff;
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .footer {
+    padding-left: 70px;
+    padding-right: 70px;
+    max-width: 1280px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+}
