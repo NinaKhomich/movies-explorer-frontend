@@ -1,25 +1,50 @@
-import useInput from "../../../utils/validation";
+import { useContext, useState, useEffect } from "react";
+import { CurrentUserContext } from "../../../contexts/CurrentUserContext";
+import useInput from "../../../utils/validation/validation";
 
 import "./ProfileForm.css";
 
-const ProfileForm = ({ isLocked }) => {
+const ProfileForm = ({ isLocked, onUpdate }) => {
   const userName = useInput("", { isEmpty: true, minLength: 2, maxLength: 30 });
   const email = useInput("", { isEmpty: true, isEmail: true });
 
+  const [isValid, setIsValid] = useState(false);
+  const currentUser = useContext(CurrentUserContext);
+
+  const formUpdateValues = {
+    name: userName.value,
+    email: email.value,
+  };
+
+  useEffect(() => {
+    if (
+      (currentUser.email !== email.value ||
+        currentUser.name !== userName.value) &&
+      email.isInputValid &&
+      userName.isInputValid
+    ) {
+      setIsValid(true);
+    } else setIsValid(false);
+  }, [email, userName, currentUser]);
+
+  function handleSubmitUpdateUser(e) {
+    e.preventDefault();
+    onUpdate(formUpdateValues);
+  }
+
   return (
-    <form className="profile-form">
-      <h2 className="profile-form__title">Привет, Виталий!</h2>
+    <form onSubmit={handleSubmitUpdateUser} className="profile-form">
+      <h2 className="profile-form__title">{`Привет, ${currentUser.name}!`}</h2>
       <label className="profile-form__label">
         <span className="profile-form__input-name">Имя</span>
         <input
           className="profile-form__input"
           name="name"
           type="text"
-          placeholder="Виталий"
+          placeholder={currentUser.name}
           value={userName.value}
           disabled={isLocked && "disabled"}
           onChange={(e) => userName.onChange(e)}
-          onBlur={(e) => userName.onBlur(e)}
           required
         ></input>
         <span
@@ -41,11 +66,10 @@ const ProfileForm = ({ isLocked }) => {
           className="profile-form__input"
           name="email"
           type="email"
-          placeholder="pochta@yandex.ru"
+          placeholder={currentUser.email}
           value={email.value}
           disabled={isLocked && "disabled"}
           onChange={(e) => email.onChange(e)}
-          onBlur={(e) => email.onBlur(e)}
           required
         ></input>
         <span
@@ -65,7 +89,7 @@ const ProfileForm = ({ isLocked }) => {
         className={`profile-form__submit-btn ${
           !isLocked ? "profile-form__submit-btn_visible" : ""
         }`}
-        disabled={(!email.isInputValid || !userName.isInputValid) && "disabled"}
+        disabled={!isValid && "disabled"}
       >
         Сохранить
       </button>

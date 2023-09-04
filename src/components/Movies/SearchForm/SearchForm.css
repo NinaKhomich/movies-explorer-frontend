@@ -73,7 +73,7 @@
   appearance: none;
   width: 36px;
   height: 20px;
-  background-color: #3ddc84;
+  background-color: #343434;
   border-radius: 10px;
   transition: .5s;
 }
@@ -84,19 +84,19 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #fff;
-  right: 6px;
+  background-color: #A0A0A0;
+  left: 6px;
   top: 6px;
   transition: .5s;
 }
 
 .search-form__checkbox:checked {
-  background-color: #343434;
+  background-color: #3ddc84;
 }
 
 .search-form__checkbox:checked:after {
-  background-color: #A0A0A0;
-  transform: translateX(-16px);
+  background-color: #fff;
+  transform: translateX(16px);
 }
 
 .search-form__checkbox-text {

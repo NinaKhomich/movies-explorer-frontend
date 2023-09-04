@@ -3,7 +3,7 @@ import ProfileForm from "./ProfileForm/ProfileForm";
 
 import "./Profile.css";
 
-const Profile = ({ onSignout }) => {
+const Profile = ({ onSignout, onUpdate }) => {
   const [isLocked, setIsLocked] = useState(true);
 
   function handleChangeProfile() {
@@ -12,7 +12,7 @@ const Profile = ({ onSignout }) => {
 
   return (
     <section className="profile">
-      <ProfileForm isLocked={isLocked} />
+      <ProfileForm onUpdate={onUpdate} isLocked={isLocked} />
       <div
         className={`profile__buttons ${
           isLocked ? "" : "profile__buttons_hidden"

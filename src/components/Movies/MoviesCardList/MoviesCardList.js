@@ -1,84 +1,102 @@
-import { useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import More from "../More/More";
 import "./MoviesCardList.css";
 
-const MoviesCardList = ({ moviesArray }) => {
-  let shownMovies = 5;
-  let moviesToAdd = 2;
-
-  const resizeWindow = () => {
-    if (window.innerWidth >= 1024) {
-      shownMovies = 12;
-      moviesToAdd = 3;
-    } else if (window.innerWidth >= 768) {
-      shownMovies = 8;
-      moviesToAdd = 2;
-    } else {
-      shownMovies = 5;
-      moviesToAdd = 2;
-    }
-  };
-  window.resizeWindow = () => {
-    setTimeout(resizeWindow, 1000);
-  };
-
-  resizeWindow();
-
-  const [loadIndex, setLoadIndex] = useState(shownMovies);
-
+const MoviesCardList = ({
+  isSaved,
+  moviesArray,
+  savedMoviesArray,
+  nothingFound,
+  onSaveMovie,
+  deleteMovie,
+}) => {
+  const [shownMovies, setShownMovies] = useState(0);
+  const [moviesToAdd, setMoviesToAdd] = useState(0);
+  const [width, setWidth] = useState(window.innerWidth);
   const location = useLocation();
 
-  function showMore() {
-    if (loadIndex < moviesArray.length) {
-      setLoadIndex(loadIndex + moviesToAdd);
+  useEffect(() => {
+    const resizeWindow = () => {
+      setWidth(window.innerWidth);
+    };
+
+    if (location.pathname === "/movies") {
+      if (width >= 1024) {
+        setShownMovies(12);
+        setMoviesToAdd(3);
+      } else if (width >= 576) {
+        setShownMovies(8);
+        setMoviesToAdd(2);
+      } else {
+        setShownMovies(5);
+        setMoviesToAdd(2);
+      }
     }
+
+    window.addEventListener("resize", resizeWindow);
+    return () => {
+      window.removeEventListener("resize", resizeWindow);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window.innerWidth, location, moviesArray]);
+
+  function showMore() {
+    setShownMovies((shownMovies) => shownMovies + moviesToAdd);
   }
 
   return (
-    <div>
-      {location.pathname === "/saved-movies" && (
-        <ul className="movies-card-list">
-          {moviesArray.map((movie) => {
-            return (
-              <li className="movies-card-list__item" key={movie.id}>
-                <MoviesCard
-                  title={movie.nameRU}
-                  duration={movie.duration}
-                  trailerLink={movie.trailerLink}
-                  thumbnail={
-                    "https://api.nomoreparties.co" +
-                    movie.image.formats.thumbnail.url
-                  }
-                />
-              </li>
-            );
-          })}
-        </ul>
-      )}
+    <Fragment>
+      {location.pathname === "/saved-movies" &&
+        (savedMoviesArray.length ? (
+          <ul className="movies-card-list">
+            {savedMoviesArray.map((savedMovie) => {
+              return (
+                <li className="movies-card-list__item" key={savedMovie._id}>
+                  <MoviesCard
+                    movie={savedMovie}
+                    onChangeMovieStatus={deleteMovie}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          nothingFound && (
+            <p className="movies-card-list__message-not-found">
+              Ничего не найдено
+            </p>
+          )
+        ))}
 
       {location.pathname === "/movies" && (
-        <ul className="movies-card-list">
-          {moviesArray.slice(0, loadIndex).map((movie) => {
-            return (
-              <li className="movies-card-list__item" key={movie.id}>
-                <MoviesCard
-                  title={movie.nameRU}
-                  duration={movie.duration}
-                  trailerLink={movie.trailerLink}
-                  thumbnail={
-                    "https://api.nomoreparties.co" +
-                    movie.image.formats.thumbnail.url
-                  }
-                />
-              </li>
-            );
-          })}
-        </ul>
+        <Fragment>
+          {moviesArray.length ? (
+            <ul className="movies-card-list">
+              {moviesArray.slice(0, shownMovies).map((searchedMovie) => {
+                return (
+                  <li className="movies-card-list__item" key={searchedMovie.id}>
+                    <MoviesCard
+                      movie={searchedMovie}
+                      onChangeMovieStatus={onSaveMovie}
+                      isSaved={isSaved}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            nothingFound && (
+              <p className="movies-card-list__message-not-found">
+                Ничего не найдено
+              </p>
+            )
+          )}
+          {shownMovies < moviesArray.length && <More showMore={showMore} />}
+        </Fragment>
       )}
-      {loadIndex < moviesArray.length && <More showMore={showMore} />}
-    </div>
+    </Fragment>
   );
 };
 

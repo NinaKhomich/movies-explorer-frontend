@@ -176,7 +176,7 @@
     width: 26px;
   }
   
-  .nav__burger:before, .nav__burger:after {
+  .nav__burger-line, .nav__burger:before, .nav__burger:after {
     height: 3px;
   }
   

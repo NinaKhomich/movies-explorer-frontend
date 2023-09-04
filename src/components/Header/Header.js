@@ -6,7 +6,9 @@ import Navigation from "../Navigation/Navigation";
 const Header = ({ isLoggedIn }) => {
   const location = useLocation();
 
-  return (
+  return location.pathname !== "/signup" &&
+    location.pathname !== "/signin" &&
+    location.pathname !== "/404" ? (
     <header
       className={`header ${location.pathname !== "/" ? "" : "header_main"}`}
     >
@@ -15,7 +17,7 @@ const Header = ({ isLoggedIn }) => {
       </NavLink>
       <Navigation isLoggedIn={isLoggedIn} />
     </header>
-  );
+  ) : null;
 };
 
 export default Header;

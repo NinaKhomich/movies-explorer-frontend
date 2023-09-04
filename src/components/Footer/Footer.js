@@ -1,7 +1,13 @@
+import { useLocation } from "react-router-dom";
 import "./Footer.css";
 
 const Footer = () => {
-  return (
+  const location = useLocation();
+
+  return location.pathname !== "/signup" &&
+    location.pathname !== "/profile" &&
+    location.pathname !== "/signin" &&
+    location.pathname !== "/404" ? (
     <footer className="footer">
       <h2 className="footer__title">
         Учебный проект Яндекс.Практикум х BeatFilm.
@@ -32,7 +38,7 @@ const Footer = () => {
         <span className="footer__year">© 2020</span>
       </div>
     </footer>
-  );
+  ) : null;
 };
 
 export default Footer;
