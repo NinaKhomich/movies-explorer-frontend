@@ -5,7 +5,7 @@ import useInput from "../../utils/validation/validation";
 const Register = ({ onSignup }) => {
   const userName = useInput("", { isEmpty: true, minLength: 2, maxLength: 30 });
   const email = useInput("", { isEmpty: true, isEmail: true });
-  const password = useInput("", { isEmpty: true });
+  const password = useInput("", { isEmpty: true, minLength: 8 });
 
   const formRegistValues = {
     name: userName.value,
@@ -57,7 +57,7 @@ const Register = ({ onSignup }) => {
         type="password"
         value={password.value}
         placeholder="password"
-        isVisible={password.isDirty && password.isEmpty}
+        isVisible={password.isDirty && (password.isEmpty || password.minLengthError)}
         onChange={(e) => password.onChange(e)}
       />
     </SignPage>

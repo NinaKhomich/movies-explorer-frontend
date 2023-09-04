@@ -6,7 +6,7 @@
 [pull](https://github.com/NinaKhomich/movies-explorer-frontend/pull/2)
 
 ## Ссылка на задеплоенный на сервере проект
-[movies-explorer-project](http://movies-explorer-project.nomoreparties.co/)
+[movies-explorer-project](https://movies-explorer-project.nomoreparties.co/)
 
 ## Макет в Figma
 dark-4
