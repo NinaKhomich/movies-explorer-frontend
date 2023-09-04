@@ -3,7 +3,7 @@
 Сервис Movies-explorer-frontend: страница для поиска фильмов с возможностью создать профиль и сохранять фильмы в отдельный список.
 
 ## Ссылка на pull request
-[pull]()
+[pull](https://github.com/NinaKhomich/movies-explorer-frontend/pull/2)
 
 ## Ссылка на задеплоенный на сервере проект
 [movies-explorer-project](http://movies-explorer-project.nomoreparties.co/)
