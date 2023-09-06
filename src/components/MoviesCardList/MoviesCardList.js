@@ -1,8 +1,18 @@
 import { Fragment, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import More from "../More/More";
+import MoviesCard from "./MoviesCard/MoviesCard";
+import More from "../Movies/More/More";
 import "./MoviesCardList.css";
+
+import {
+  SCREEN_WIDTH_2_COLUMNS,
+  SCREEN_WIDTH_3_COLUMNS,
+  MOVIES_TO_SHOW_1_COL,
+  MOVIES_TO_SHOW_2_COL,
+  MOVIES_TO_SHOW_3_COL,
+  MOVIES_TO_ADD_2_COL,
+  MOVIES_TO_ADD_3_COL
+} from "../../utils/constants/constants";
 
 const MoviesCardList = ({
   isSaved,
@@ -23,15 +33,15 @@ const MoviesCardList = ({
     };
 
     if (location.pathname === "/movies") {
-      if (width >= 1024) {
-        setShownMovies(12);
-        setMoviesToAdd(3);
-      } else if (width >= 576) {
-        setShownMovies(8);
-        setMoviesToAdd(2);
+      if (width >= SCREEN_WIDTH_3_COLUMNS) {
+        setShownMovies(MOVIES_TO_SHOW_3_COL);
+        setMoviesToAdd(MOVIES_TO_ADD_3_COL);
+      } else if (width >= SCREEN_WIDTH_2_COLUMNS) {
+        setShownMovies(MOVIES_TO_SHOW_2_COL);
+        setMoviesToAdd(MOVIES_TO_ADD_2_COL);
       } else {
-        setShownMovies(5);
-        setMoviesToAdd(2);
+        setShownMovies(MOVIES_TO_SHOW_1_COL);
+        setMoviesToAdd(MOVIES_TO_ADD_2_COL);
       }
     }
 

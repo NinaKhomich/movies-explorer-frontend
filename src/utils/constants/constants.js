@@ -1,0 +1,25 @@
+const API_MOVIES_URL = 'https://api.nomoreparties.co/beatfilm-movies';
+const API_MAIN_URL = 'https://api.movies-project.nomoreparties.co/';
+const API_MOVIES_URL_FOR_THUMBNAIL = 'https://api.nomoreparties.co';
+const SHORT_MOVIE_DURATION = 40;
+const SCREEN_WIDTH_3_COLUMNS = 1024;
+const SCREEN_WIDTH_2_COLUMNS = 576;
+const MOVIES_TO_SHOW_3_COL = 12;
+const MOVIES_TO_SHOW_2_COL = 8;
+const MOVIES_TO_SHOW_1_COL = 5;
+const MOVIES_TO_ADD_3_COL = 3;
+const MOVIES_TO_ADD_2_COL = 2;
+
+export {
+  API_MOVIES_URL,
+  API_MAIN_URL,
+  API_MOVIES_URL_FOR_THUMBNAIL,
+  SHORT_MOVIE_DURATION,
+  SCREEN_WIDTH_3_COLUMNS,
+  SCREEN_WIDTH_2_COLUMNS,
+  MOVIES_TO_SHOW_3_COL,
+  MOVIES_TO_SHOW_2_COL,
+  MOVIES_TO_SHOW_1_COL,
+  MOVIES_TO_ADD_2_COL,
+  MOVIES_TO_ADD_3_COL,
+}

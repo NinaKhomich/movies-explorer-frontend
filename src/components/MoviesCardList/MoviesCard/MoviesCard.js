@@ -2,6 +2,8 @@ import { useLocation } from "react-router-dom";
 
 import "./MoviesCard.css";
 
+import { API_MOVIES_URL_FOR_THUMBNAIL } from "../../../utils/constants/constants";
+
 const MoviesCard = ({ movie, onChangeMovieStatus, isSaved }) => {
   const { pathname } = useLocation();
 
@@ -9,19 +11,19 @@ const MoviesCard = ({ movie, onChangeMovieStatus, isSaved }) => {
 
   function handleToggleMovieStatus() {
     onChangeMovieStatus(pathname === "/saved-movies" ? movie._id : movie);
-    console.log(isSaved(movie));
   }
 
   if (pathname === "/saved-movies") {
     btnText = "×";
-    movie.thumbnail = `https://api.nomoreparties.co/uploads/thumbnail_${
+    movie.thumbnail = `${API_MOVIES_URL_FOR_THUMBNAIL}/uploads/thumbnail_${
       movie.image.split(
-        "https://api.nomoreparties.co/beatfilm-movies/uploads/"
+        `${API_MOVIES_URL_FOR_THUMBNAIL}/beatfilm-movies/uploads/`
       )[1]
     }`;
   } else if (pathname === "/movies") {
     isSaved(movie) ? (btnText = "✓") : (btnText = "Сохранить");
-    movie.thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
+    movie.thumbnail =
+      API_MOVIES_URL_FOR_THUMBNAIL + movie.image.formats.thumbnail.url;
   }
 
   function movieTime() {

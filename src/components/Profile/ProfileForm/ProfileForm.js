@@ -86,7 +86,7 @@ const ProfileForm = ({ isLocked, onUpdateUser }) => {
               : ""
           }`}
         >
-          Обновите имя. Имя должно содержать не менее 2 символов.
+          Обновите e-mail.
         </span>
       </label>
       <p className="profile-form__error-message">

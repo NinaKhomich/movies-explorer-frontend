@@ -2,7 +2,7 @@ import SignInput from "../SignInput/SignInput";
 import SignPage from "../SignPage/SignPage";
 import useInput from "../../utils/validation/validation";
 
-const Login = ({ onSignin }) => {
+const Login = ({ onSignin, isLockedBtn }) => {
   const email = useInput("", { isEmpty: true, isEmail: true });
   const password = useInput("", { isEmpty: true });
 
@@ -20,6 +20,7 @@ const Login = ({ onSignin }) => {
     <SignPage
       greatingText="Рады видеть!"
       btnText="Войти"
+      isLockedBtn={isLockedBtn}
       loggedText="Ещё не зарегистрированы?"
       path="/signup"
       signLinkText="Регистрация"

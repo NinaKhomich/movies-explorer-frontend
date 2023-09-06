@@ -1,5 +1,7 @@
-.techs {
+.techs__container {
   padding: 70px 18px;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 .techs__title {
@@ -54,8 +56,11 @@
 
 @media screen and (min-width: 768px) {
   .techs {
-    padding: 92px 50px;
     background-color: #272727;
+  }
+
+  .techs__container {
+    padding: 92px 50px;
   }
 
   .techs__title {
@@ -86,7 +91,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .techs {
+  .techs__container {
     padding: 100px 70px;
   }
 

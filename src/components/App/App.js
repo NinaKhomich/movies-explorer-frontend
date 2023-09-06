@@ -1,10 +1,4 @@
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
@@ -28,15 +22,17 @@ import {
   apiMovieSettings,
   apiMainSettings,
 } from "../../utils/constants/apiSettings";
-import { ConflictError, Unauthorized } from "../../utils/constants/errors";
+import { CONFLICT_ERROR, UNAUTHORIZED } from "../../utils/constants/errors";
+import { SHORT_MOVIE_DURATION } from "../../utils/constants/constants";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isPreloader, setIsPreloader] = useState(false);
   const [nothingFound, setNothingFound] = useState(false);
-  const [shortMovies, setShortMovies] = useState(false);
+  const [shortMoviesCheckbox, setShortMoviesCheckbox] = useState(false);
   const [savedShortMovies, setSavedShortMovies] = useState(false);
+  const [isLockedBtn, setIsLockedBtn] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -48,6 +44,7 @@ function App() {
 
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [allSavedMovies, setAllSavedMovies] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -61,13 +58,13 @@ function App() {
       apiMain.checkToken(jwt).then((res) => {
         setIsLoggedIn(true);
         setCurrentUser(res);
-        navigate({ replace: false });
+        navigate(location.pathname, { replace: true });
       });
     }
     if (localStorage.getItem("shortMoviesCheckbox") === "true") {
-      setShortMovies(true);
+      setShortMoviesCheckbox(true);
     } else {
-      setShortMovies(false);
+      setShortMoviesCheckbox(false);
     }
     getAllSavedMovies();
     updatePreviousMovies();
@@ -75,19 +72,25 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn && shortMovies) {
+    updateAllSavedMovies();
+    updateSavedMovies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allSavedMovies]);
+
+  useEffect(() => {
+    if (isLoggedIn && shortMoviesCheckbox) {
       const filteredShortMovies = JSON.parse(
         localStorage.getItem("filtered-short-movies")
       );
       filteredShortMovies !== null && updateSearchedMovies(filteredShortMovies);
-    } else if (isLoggedIn && !shortMovies) {
+    } else if (isLoggedIn && !shortMoviesCheckbox) {
       const filteredMovies = JSON.parse(
         localStorage.getItem("filtered-movies")
       );
       filteredMovies !== null && updateSearchedMovies(filteredMovies);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shortMovies]);
+  }, [shortMoviesCheckbox]);
 
   useEffect(() => {
     if (location.pathname !== "/saved-movies") {
@@ -125,6 +128,7 @@ function App() {
   }
 
   function handleRegister(formValues) {
+    setIsLockedBtn(true);
     apiMain
       .register(formValues)
       .then(() => {
@@ -132,15 +136,17 @@ function App() {
       })
       .catch((err) => {
         setErrorMessage(
-          err === ConflictError.status
-            ? ConflictError.errorText
+          err === CONFLICT_ERROR.status
+            ? CONFLICT_ERROR.errorText
             : "При регистрации пользователя произошла ошибка."
         );
         setIsOpen(true);
-      });
+      })
+      .finally(() => setIsLockedBtn(false));
   }
 
   function handleLogin(formValues) {
+    setIsLockedBtn(true);
     apiMain
       .login(formValues)
       .then((res) => {
@@ -155,8 +161,8 @@ function App() {
           })
           .catch((err) => {
             setErrorMessage(
-              err === Unauthorized.status
-                ? Unauthorized.errorText
+              err === UNAUTHORIZED.status
+                ? UNAUTHORIZED.errorText
                 : "При авторизации произошла ошибка."
             );
             setIsOpen(true);
@@ -164,12 +170,13 @@ function App() {
       })
       .catch((err) => {
         setErrorMessage(
-          err === Unauthorized.status
-            ? Unauthorized.errorText
+          err === UNAUTHORIZED.status
+            ? UNAUTHORIZED.errorText
             : "При авторизации произошла ошибка."
         );
         setIsOpen(true);
-      });
+      })
+      .finally(() => setIsLockedBtn(false));
   }
 
   function handleUpdateUser(formValues) {
@@ -182,8 +189,8 @@ function App() {
       })
       .catch((err) => {
         setErrorMessage(
-          err === ConflictError.status
-            ? ConflictError.errorText
+          err === CONFLICT_ERROR.status
+            ? CONFLICT_ERROR.errorText
             : "При обновлении профиля произошла ошибка."
         );
         setIsOpen(true);
@@ -194,6 +201,7 @@ function App() {
     localStorage.clear();
     setSearchedMovies([]);
     setSavedMovies([]);
+    setAllSavedMovies([]);
     setCurrentUser({});
     setIsLoggedIn(false);
     navigate("/");
@@ -244,13 +252,13 @@ function App() {
             JSON.stringify(movieToSearch)
           );
           const filteredShortMovies = filteredMovies.filter(
-            (movie) => movie.duration <= 40
+            (movie) => movie.duration <= SHORT_MOVIE_DURATION
           );
           localStorage.setItem(
             "filtered-short-movies",
             JSON.stringify(filteredShortMovies)
           );
-          if (shortMovies) {
+          if (shortMoviesCheckbox) {
             updateSearchedMovies(filteredShortMovies);
           } else {
             updateSearchedMovies(filteredMovies);
@@ -271,8 +279,8 @@ function App() {
   function handleChooseShortMovies(movieToSearch) {
     if (location.pathname === "/movies") {
       if (movieToSearch) {
-        setShortMovies(!shortMovies);
-        localStorage.setItem("shortMoviesCheckbox", !shortMovies);
+        setShortMoviesCheckbox(!shortMoviesCheckbox);
+        localStorage.setItem("shortMoviesCheckbox", !shortMoviesCheckbox);
       } else {
         setIsOpen(true);
         setErrorMessage("Нужно ввести ключевое слово");
@@ -289,7 +297,7 @@ function App() {
           localStorage.getItem("allSavedMovies")
         );
         const savedShortMoviesArray = savedMoviesArray.filter(
-          (movie) => movie.duration <= 40
+          (movie) => movie.duration <= SHORT_MOVIE_DURATION
         );
         if (!savedShortMovies) {
           setSavedMovies(savedShortMoviesArray);
@@ -319,7 +327,7 @@ function App() {
         JSON.stringify(savedSearchedMovies)
       );
       const savedSearchedShortMovies = savedSearchedMovies.filter(
-        (movie) => movie.duration <= 40
+        (movie) => movie.duration <= SHORT_MOVIE_DURATION
       );
       localStorage.setItem(
         "saved-filtered-short-movies",
@@ -340,6 +348,7 @@ function App() {
       .getSavedMovies()
       .then((res) => {
         setSavedMovies(res);
+        setAllSavedMovies(res);
         localStorage.setItem("allSavedMovies", JSON.stringify(res));
       })
       .catch((err) => console.log(err));
@@ -349,11 +358,15 @@ function App() {
     setSavedMovies(JSON.parse(localStorage.getItem("allSavedMovies")));
   }
 
+  function updateAllSavedMovies() {
+    localStorage.setItem("allSavedMovies", JSON.stringify(allSavedMovies));
+  }
+
   function handleSaveMovie(movie) {
     apiMain
       .saveMovie(movie)
       .then((res) => {
-        getAllSavedMovies();
+        setAllSavedMovies([...allSavedMovies, res]);
       })
       .catch((err) => {
         setIsOpen(true);
@@ -374,11 +387,9 @@ function App() {
     apiMain
       .deleteMovie(movie)
       .then((res) => {
-        // console.log(res, movie);
-        // setSavedMovies((state) =>
-        //   state.filter((savedMovie) => savedMovie._id !== movie)
-        // );
-        getAllSavedMovies();
+        setAllSavedMovies((state) =>
+          state.filter((savedMovie) => savedMovie._id !== movie)
+        );
       })
       .catch(() => {
         setIsOpen(true);
@@ -387,12 +398,7 @@ function App() {
   }
 
   const isSaved = (movie) => {
-    const localSavedMovies = JSON.parse(localStorage.getItem("allSavedMovies"));
-    if (localSavedMovies) {
-      return localSavedMovies.some(
-        (movieItem) => movieItem.movieId === movie.id
-      );
-    }
+    return allSavedMovies.some((movieItem) => movieItem.movieId === movie.id);
   };
 
   function updateMovieStatus(movie) {
@@ -409,8 +415,7 @@ function App() {
         <Header isLoggedIn={isLoggedIn} />
 
         <Routes>
-          <Route path="/404" element={<NotFound />} />
-          <Route path="/*" element={<Navigate to="/404" />} />
+          <Route path="/*" element={<NotFound />} />
           <Route path="/" element={<Main />} />
           <Route
             path="/movies"
@@ -418,7 +423,7 @@ function App() {
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Movies
                   onChooseShortMovies={handleChooseShortMovies}
-                  shortMoviesCheck={shortMovies}
+                  shortMoviesCheck={shortMoviesCheckbox}
                   nothingFound={nothingFound}
                   moviesArray={searchedMovies}
                   isPreloader={isPreloader}
@@ -453,11 +458,22 @@ function App() {
             }
           />
 
-          <Route path="/signin" element={<Login onSignin={handleLogin} />} />
+          <Route
+            path="/signin"
+            element={
+              <ProtectedRoute isLoggedIn={!isLoggedIn}>
+                <Login isLockedBtn={isLockedBtn} onSignin={handleLogin} />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/signup"
-            element={<Register onSignup={handleRegister} />}
+            element={
+              <ProtectedRoute isLoggedIn={!isLoggedIn}>
+                <Register isLockedBtn={isLockedBtn} onSignup={handleRegister} />
+              </ProtectedRoute>
+            }
           />
         </Routes>
 

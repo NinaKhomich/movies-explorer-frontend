@@ -2,7 +2,7 @@ import SignInput from "../SignInput/SignInput";
 import SignPage from "../SignPage/SignPage";
 import useInput from "../../utils/validation/validation";
 
-const Register = ({ onSignup }) => {
+const Register = ({ onSignup, isLockedBtn }) => {
   const userName = useInput("", { isEmpty: true, minLength: 2, maxLength: 30 });
   const email = useInput("", { isEmpty: true, isEmail: true });
   const password = useInput("", { isEmpty: true, minLength: 8 });
@@ -23,6 +23,7 @@ const Register = ({ onSignup }) => {
       onSignup={onSignup}
       greatingText="Добро пожаловать!"
       btnText="Зарегистрироваться"
+      isLockedBtn={isLockedBtn}
       loggedText="Уже зарегистрированы?"
       path="/signin"
       signLinkText="Войти"
@@ -57,7 +58,9 @@ const Register = ({ onSignup }) => {
         type="password"
         value={password.value}
         placeholder="password"
-        isVisible={password.isDirty && (password.isEmpty || password.minLengthError)}
+        isVisible={
+          password.isDirty && (password.isEmpty || password.minLengthError)
+        }
         onChange={(e) => password.onChange(e)}
       />
     </SignPage>

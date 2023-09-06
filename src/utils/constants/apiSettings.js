@@ -1,15 +1,17 @@
+import { API_MAIN_URL, API_MOVIES_URL } from "./constants";
+
 const apiMovieSettings = {
-  link: 'https://api.nomoreparties.co/beatfilm-movies',
+  link: API_MOVIES_URL,
   headers: {
-      'Content-Type': 'application/json'
-    }
-}
+    "Content-Type": "application/json",
+  },
+};
 
 const apiMainSettings = {
-  link: 'https://api.movies-project.nomoreparties.co/',
+  link: API_MAIN_URL,
   headers: {
-      'Content-Type': 'application/json'
-    }
-}
+    "Content-Type": "application/json",
+  },
+};
 
 export { apiMovieSettings, apiMainSettings };

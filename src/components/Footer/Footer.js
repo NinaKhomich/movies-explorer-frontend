@@ -4,10 +4,9 @@ import "./Footer.css";
 const Footer = () => {
   const location = useLocation();
 
-  return location.pathname !== "/signup" &&
-    location.pathname !== "/profile" &&
-    location.pathname !== "/signin" &&
-    location.pathname !== "/404" ? (
+  return location.pathname === "/" ||
+    location.pathname === "/movies" ||
+    location.pathname === "/saved-movies" ? (
     <footer className="footer">
       <h2 className="footer__title">
         Учебный проект Яндекс.Практикум х BeatFilm.
