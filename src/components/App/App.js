@@ -93,8 +93,10 @@ function App() {
     if (location.pathname !== "/saved-movies") {
       localStorage.removeItem("saved-filtered-movies");
       localStorage.removeItem("saved-filtered-short-movies");
+      localStorage.removeItem("savedShortMoviesCheckbox");
+      setSavedShortMovies(false);
     } else {
-      getAllSavedMovies();
+      updateSavedMovies();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
@@ -267,15 +269,34 @@ function App() {
   }
 
   function handleChooseShortMovies(movieToSearch) {
-    if (movieToSearch && location.pathname === "/movies") {
-      setShortMovies(!shortMovies);
-      localStorage.setItem("shortMoviesCheckbox", !shortMovies);
-    } else if (movieToSearch && location.pathname === "/saved-movies") {
+    if (location.pathname === "/movies") {
+      if (movieToSearch) {
+        setShortMovies(!shortMovies);
+        localStorage.setItem("shortMoviesCheckbox", !shortMovies);
+      } else {
+        setIsOpen(true);
+        setErrorMessage("Нужно ввести ключевое слово");
+      }
+    }
+    if (location.pathname === "/saved-movies") {
       setSavedShortMovies(!savedShortMovies);
-      localStorage.setItem("savedShortMoviesCheckbox", !savedShortMovies);
-    } else {
-      setIsOpen(true);
-      setErrorMessage("Нужно ввести ключевое слово");
+      const savedFilteredShortMovies = JSON.parse(
+        localStorage.getItem("saved-filtered-short-movies")
+      );
+      if (!savedFilteredShortMovies) {
+        localStorage.setItem("savedShortMoviesCheckbox", !savedShortMovies);
+        const savedMoviesArray = JSON.parse(
+          localStorage.getItem("allSavedMovies")
+        );
+        const savedShortMoviesArray = savedMoviesArray.filter(
+          (movie) => movie.duration <= 40
+        );
+        if (!savedShortMovies) {
+          setSavedMovies(savedShortMoviesArray);
+        } else {
+          setSavedMovies(savedMoviesArray);
+        }
+      }
     }
   }
 
@@ -297,16 +318,16 @@ function App() {
         "saved-filtered-movies",
         JSON.stringify(savedSearchedMovies)
       );
-      const savedSearchedShortdMovies = savedSearchedMovies.filter(
+      const savedSearchedShortMovies = savedSearchedMovies.filter(
         (movie) => movie.duration <= 40
       );
       localStorage.setItem(
         "saved-filtered-short-movies",
-        JSON.stringify(savedSearchedShortdMovies)
+        JSON.stringify(savedSearchedShortMovies)
       );
       if (savedShortMovies) {
-        setSavedMovies(savedSearchedShortdMovies);
-        savedSearchedShortdMovies.length === 0 && setNothingFound(true);
+        setSavedMovies(savedSearchedShortMovies);
+        savedSearchedShortMovies.length === 0 && setNothingFound(true);
       } else {
         setSavedMovies(savedSearchedMovies);
         savedSearchedMovies.length === 0 && setNothingFound(true);
@@ -322,6 +343,10 @@ function App() {
         localStorage.setItem("allSavedMovies", JSON.stringify(res));
       })
       .catch((err) => console.log(err));
+  }
+
+  function updateSavedMovies() {
+    setSavedMovies(JSON.parse(localStorage.getItem("allSavedMovies")));
   }
 
   function handleSaveMovie(movie) {
@@ -349,6 +374,10 @@ function App() {
     apiMain
       .deleteMovie(movie)
       .then((res) => {
+        // console.log(res, movie);
+        // setSavedMovies((state) =>
+        //   state.filter((savedMovie) => savedMovie._id !== movie)
+        // );
         getAllSavedMovies();
       })
       .catch(() => {

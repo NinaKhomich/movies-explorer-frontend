@@ -4,32 +4,39 @@ import useInput from "../../../utils/validation/validation";
 
 import "./ProfileForm.css";
 
-const ProfileForm = ({ isLocked, onUpdate }) => {
+const ProfileForm = ({ isLocked, onUpdateUser }) => {
   const userName = useInput("", { isEmpty: true, minLength: 2, maxLength: 30 });
   const email = useInput("", { isEmpty: true, isEmail: true });
 
+  const [formValue, setFormValue] = useState({name: '', email: ''});
   const [isValid, setIsValid] = useState(false);
   const currentUser = useContext(CurrentUserContext);
 
-  const formUpdateValues = {
-    name: userName.value,
-    email: email.value,
-  };
+  useEffect(() => {
+    setFormValue({name: currentUser.name, email: currentUser.email});
+  }, [currentUser, isLocked]);
 
   useEffect(() => {
-    if (
-      (currentUser.email !== email.value ||
-        currentUser.name !== userName.value) &&
-      email.isInputValid &&
-      userName.isInputValid
-    ) {
-      setIsValid(true);
+    if ((currentUser.email !== email.value &&
+        email.isInputValid) || (currentUser.name !== userName.value &&
+          userName.isInputValid)) {
+          setIsValid(true);
     } else setIsValid(false);
   }, [email, userName, currentUser]);
 
   function handleSubmitUpdateUser(e) {
     e.preventDefault();
-    onUpdate(formUpdateValues);
+    onUpdateUser(formValue);
+  }
+
+  function handleChangeName(e) {
+    setFormValue({name: e.target.value, email: formValue.email});
+    userName.onChange(e);
+  }
+
+  function handleChangeEmail(e) {
+    setFormValue({email: e.target.value, name: formValue.name});
+    email.onChange(e);
   }
 
   return (
@@ -41,10 +48,10 @@ const ProfileForm = ({ isLocked, onUpdate }) => {
           className="profile-form__input"
           name="name"
           type="text"
-          placeholder={currentUser.name}
-          value={userName.value}
+          placeholder="имя"
+          value={formValue.name ?? ''}
           disabled={isLocked && "disabled"}
-          onChange={(e) => userName.onChange(e)}
+          onChange={handleChangeName}
           required
         ></input>
         <span
@@ -57,7 +64,7 @@ const ProfileForm = ({ isLocked, onUpdate }) => {
               : ""
           }`}
         >
-          Что-то пошло не так...
+        Обновите имя. Имя должно содержать не менее 2 символов.
         </span>
       </label>
       <label className="profile-form__label">
@@ -66,10 +73,10 @@ const ProfileForm = ({ isLocked, onUpdate }) => {
           className="profile-form__input"
           name="email"
           type="email"
-          placeholder={currentUser.email}
-          value={email.value}
+          placeholder="e-mail"
+          value={formValue.email ?? ''}
           disabled={isLocked && "disabled"}
-          onChange={(e) => email.onChange(e)}
+          onChange={handleChangeEmail}
           required
         ></input>
         <span
@@ -79,7 +86,7 @@ const ProfileForm = ({ isLocked, onUpdate }) => {
               : ""
           }`}
         >
-          Что-то пошло не так...
+          Обновите имя. Имя должно содержать не менее 2 символов.
         </span>
       </label>
       <p className="profile-form__error-message">

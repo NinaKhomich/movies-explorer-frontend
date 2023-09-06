@@ -10,9 +10,14 @@ const Profile = ({ onSignout, onUpdate }) => {
     setIsLocked(!isLocked);
   }
 
+  function onUpdateUser(formValue) {
+    onUpdate(formValue);
+    setIsLocked(!isLocked);
+  }
+
   return (
     <section className="profile">
-      <ProfileForm onUpdate={onUpdate} isLocked={isLocked} />
+      <ProfileForm onUpdateUser={onUpdateUser} isLocked={isLocked} />
       <div
         className={`profile__buttons ${
           isLocked ? "" : "profile__buttons_hidden"

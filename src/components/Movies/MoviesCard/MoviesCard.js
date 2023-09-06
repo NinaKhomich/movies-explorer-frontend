@@ -9,6 +9,7 @@ const MoviesCard = ({ movie, onChangeMovieStatus, isSaved }) => {
 
   function handleToggleMovieStatus() {
     onChangeMovieStatus(pathname === "/saved-movies" ? movie._id : movie);
+    console.log(isSaved(movie));
   }
 
   if (pathname === "/saved-movies") {
