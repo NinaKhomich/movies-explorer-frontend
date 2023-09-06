@@ -118,7 +118,7 @@ function App() {
         localStorage.getItem("saved-filtered-movies")
       );
       savedFilteredMovies !== null && setSavedMovies(savedFilteredMovies);
-    };
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [savedShortMovies]);
 
