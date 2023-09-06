@@ -112,13 +112,13 @@ function App() {
       if (savedFilteredShortMovies !== null) {
         savedFilteredShortMovies.length === 0 && setNothingFound(true);
         setSavedMovies(savedFilteredShortMovies);
-      }
+      } else setNothingFound(true);
     } else if (isLoggedIn && !savedShortMovies) {
       const savedFilteredMovies = JSON.parse(
         localStorage.getItem("saved-filtered-movies")
       );
       savedFilteredMovies !== null && setSavedMovies(savedFilteredMovies);
-    }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [savedShortMovies]);
 
@@ -287,22 +287,31 @@ function App() {
       }
     }
     if (location.pathname === "/saved-movies") {
-      setSavedShortMovies(!savedShortMovies);
       const savedFilteredShortMovies = JSON.parse(
         localStorage.getItem("saved-filtered-short-movies")
       );
-      if (!savedFilteredShortMovies) {
-        localStorage.setItem("savedShortMoviesCheckbox", !savedShortMovies);
-        const savedMoviesArray = JSON.parse(
-          localStorage.getItem("allSavedMovies")
-        );
-        const savedShortMoviesArray = savedMoviesArray.filter(
-          (movie) => movie.duration <= SHORT_MOVIE_DURATION
-        );
-        if (!savedShortMovies) {
-          setSavedMovies(savedShortMoviesArray);
-        } else {
-          setSavedMovies(savedMoviesArray);
+      const savedMoviesArray = JSON.parse(
+        localStorage.getItem("allSavedMovies")
+      );
+      if (savedMoviesArray.length === 0) {
+        setIsOpen(true);
+        setErrorMessage("Нет сохраненных фильмов");
+      } else {
+        setSavedShortMovies(!savedShortMovies);
+        if (savedMoviesArray.length === 0) {
+          setIsOpen(true);
+          setErrorMessage("Нет сохраненных фильмов");
+        }
+        if (!savedFilteredShortMovies) {
+          localStorage.setItem("savedShortMoviesCheckbox", !savedShortMovies);
+          const savedShortMoviesArray = savedMoviesArray.filter(
+            (movie) => movie.duration <= SHORT_MOVIE_DURATION
+          );
+          if (!savedShortMovies) {
+            setSavedMovies(savedShortMoviesArray);
+          } else {
+            setSavedMovies(savedMoviesArray);
+          }
         }
       }
     }
