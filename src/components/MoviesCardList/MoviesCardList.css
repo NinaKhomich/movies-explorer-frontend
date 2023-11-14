@@ -8,6 +8,12 @@
   margin-bottom: 16px;
 }
 
+.movies-card-list__message-not-found {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+
 @media screen and (min-width: 576px) {
   .movies-card-list{
     display: grid;

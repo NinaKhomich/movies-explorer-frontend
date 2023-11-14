@@ -1,14 +1,14 @@
-const Unauthorized = {
+const UNAUTHORIZED= {
   status: 401,
   errorText: "Вы ввели неправильный логин или пароль.",
 };
 
-const ConflictError = {
+const CONFLICT_ERROR = {
   status: 409,
   errorText: "Пользователь с таким email уже существует.",
 };
 
-export { Unauthorized, ConflictError };
+export { UNAUTHORIZED, CONFLICT_ERROR };
 
 // Тексты ошибок (Ошибки ниже отображаются не под инпутами,
 // а при получении ошибки после отправки запроса)
