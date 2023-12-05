@@ -19,7 +19,7 @@ const Portfolio = () => {
         <li className="portfolio__item">
           <a
             className="portfolio__link"
-            href="https://ninakhomich.github.io/other-name-for-public/"
+            href="https://ninakhomich.github.io/Mesto/"
             target="_blank"
             rel="noreferrer"
           >

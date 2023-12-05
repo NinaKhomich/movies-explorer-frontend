@@ -16,3 +16,4 @@ dark-4
 * React
 * Git
 
+[Ссылка на деплой проекта](movies-explorer-project.nomoreparties.co)

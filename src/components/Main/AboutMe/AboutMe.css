@@ -41,15 +41,19 @@
 }
 
 .about-me__text {
-  margin-top: 20px;
+  margin-top: 7px;
   margin-bottom: 0;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 16px;
 }
 
-.about-me__text:nth-of-type(2) {
-  font-weight: 400;
+.about-me__text:first-of-type {
+  font-weight: 500;
+}
+
+.about-me__text:last-of-type {
+  margin-bottom: 10px;
 }
 
 .about-me__link {
@@ -139,6 +143,12 @@
     letter-spacing: -2px;
   }
 
+  .about-me__text {
+    max-width: 599px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
   .about-me__text:first-of-type {
     font-size: 18px;
     line-height: 20px;
@@ -146,9 +156,6 @@
   }
 
   .about-me__text:nth-of-type(2) {
-    font-size: 14px;
-    line-height: 22px;
     margin-top: 25px;
-    max-width: 599px;
   }
 }
