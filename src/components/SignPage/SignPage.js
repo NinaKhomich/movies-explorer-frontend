@@ -7,10 +7,12 @@ const SignPage = ({
   greatingText,
   children,
   btnText,
+  isLockedBtn,
   loggedText,
   path,
   signLinkText,
   inputValid,
+  onSubmit,
 }) => {
   return (
     <section className="sign-page">
@@ -21,9 +23,9 @@ const SignPage = ({
         <h2 className="sign-page__title">{greatingText}</h2>
       </div>
 
-      <form className="sign-page__form">
+      <form onSubmit={onSubmit} className="sign-page__form">
         {children}
-        <button disabled={inputValid} className="sign-page__btn" type="submit">
+        <button disabled={inputValid || (isLockedBtn && 'disabled')} className="sign-page__btn" type="submit">
           {btnText}
         </button>
       </form>

@@ -1,5 +1,7 @@
 .about-project {
   padding: 70px 18px;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 .about-project__title {

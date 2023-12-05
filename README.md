@@ -2,7 +2,11 @@
 
 Сервис Movies-explorer-frontend: страница для поиска фильмов с возможностью создать профиль и сохранять фильмы в отдельный список.
 
-На данном этапе сверстаны страницы и настроен роутинг перехода по ним.
+## Ссылка на pull request
+[pull](https://github.com/NinaKhomich/movies-explorer-frontend/pull/2)
+
+## Ссылка на задеплоенный на сервере проект
+[movies-explorer-project](https://movies-explorer-project.nomoreparties.co/)
 
 ## Макет в Figma
 dark-4

@@ -1,7 +1,6 @@
 import "./SignInput.css";
 
 const SignInput = ({
-  onBlur,
   onChange,
   value,
   inputName,
@@ -19,7 +18,6 @@ const SignInput = ({
         name={type}
         placeholder={placeholder}
         onChange={onChange}
-        onBlur={onBlur}
       ></input>
       <span
         className={`sign-input__error ${

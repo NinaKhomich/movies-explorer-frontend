@@ -1,19 +1,33 @@
 import SignInput from "../SignInput/SignInput";
 import SignPage from "../SignPage/SignPage";
-import useInput from "../../utils/validation";
+import useInput from "../../utils/validation/validation";
 
-const Register = () => {
+const Register = ({ onSignup, isLockedBtn }) => {
   const userName = useInput("", { isEmpty: true, minLength: 2, maxLength: 30 });
   const email = useInput("", { isEmpty: true, isEmail: true });
-  const password = useInput("", { isEmpty: true });
+  const password = useInput("", { isEmpty: true, minLength: 8 });
+
+  const formRegistValues = {
+    name: userName.value,
+    email: email.value,
+    password: password.value,
+  };
+
+  const handleSubmitSignup = (e) => {
+    e.preventDefault();
+    onSignup(formRegistValues);
+  };
 
   return (
     <SignPage
+      onSignup={onSignup}
       greatingText="Добро пожаловать!"
       btnText="Зарегистрироваться"
+      isLockedBtn={isLockedBtn}
       loggedText="Уже зарегистрированы?"
       path="/signin"
       signLinkText="Войти"
+      onSubmit={handleSubmitSignup}
       inputValid={
         !email.isInputValid || !password.isInputValid || !userName.isInputValid
       }
@@ -30,7 +44,6 @@ const Register = () => {
             userName.minLengthError)
         }
         onChange={(e) => userName.onChange(e)}
-        onBlur={(e) => userName.onBlur(e)}
       />
       <SignInput
         inputName="E-mail"
@@ -39,16 +52,16 @@ const Register = () => {
         value={email.value}
         isVisible={email.isDirty && (email.isEmpty || email.isEmail)}
         onChange={(e) => email.onChange(e)}
-        onBlur={(e) => email.onBlur(e)}
       />
       <SignInput
         inputName="Пароль"
         type="password"
         value={password.value}
         placeholder="password"
-        isVisible={password.isDirty && password.isEmpty}
+        isVisible={
+          password.isDirty && (password.isEmpty || password.minLengthError)
+        }
         onChange={(e) => password.onChange(e)}
-        onBlur={(e) => password.onBlur(e)}
       />
     </SignPage>
   );
