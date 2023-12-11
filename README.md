@@ -21,3 +21,21 @@ dark-4
 * Git
 
 [Ссылка на деплой проекта](movies-explorer-project.nomoreparties.co)
+
+## Для запуска приложения выполните следующие действия:
+
+* клонировать репозиторий
+
+git clone https://github.com/NinaKhomich/movies-explorer-frontend.git
+
+* войти в папку проекта
+
+cd movies-explorer-frontend
+
+* установить зависимости
+
+npm install
+
+* запустить приложение
+
+npm start
